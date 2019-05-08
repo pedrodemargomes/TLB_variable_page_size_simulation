@@ -1,5 +1,6 @@
 require "./tlb.cr"
-path_file = "lista_enderecos.txt"
+path_file_addresses = "lista_enderecos.txt"
+path_file_pt = "lista_enderecos.txt"
 
 # Create empty TLB
 tlb = Tlb.new 8
