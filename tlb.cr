@@ -14,6 +14,7 @@ class Tlb
 	def initialize(@length : UInt32)
 		@tlb = [] of TlbEntry
 		@pt = [] of TlbEntry
+		@missCounter = 0
 	end
 
 	def insertTlb(newEntryTlb : TlbEntry)
@@ -29,6 +30,7 @@ class Tlb
 			end
 		end
 		# If address is not in TBL, search in PT
+		@missCounter += 1
 		@pt.each do |entry|
 			if (entry.tagMask & entry.tag_offset) == (entry.tagMask & virtualAddress) # HIT
 				insertTlb(entry) # Insert address in TLB
