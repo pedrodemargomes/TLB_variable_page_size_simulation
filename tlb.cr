@@ -37,6 +37,13 @@ class Tlb
 				return (~entry.tagMask & entry.tag_offset) + entry.ppn
 			end
 		end
+		return -1;
+	end
+
+	def fillPt(path_file_pt)
+		File.each_line path_file_pt do |line|
+			@pt << {line0, line1, line2}
+		end
 	end
 
 end
