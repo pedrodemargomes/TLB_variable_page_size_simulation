@@ -28,10 +28,10 @@ class Tlb
 	def insertTlbLRU(newEntryTlb : TlbEntry, ptIndex : UInt64)
 		indexInTlb = @tlb.index{|x| x.ptIndex == @lru.first }
 		print indexInTlb
-		@tlb.delete_at(indexInTlb)
+		@tlb.delete_at(indexInTlb.as(Int32))
 		@tlb.push(newEntryTlb)
 		@lru.delete_at(0)
-		@lru.push(ptIndex)
+		@lru.push(newEntryTlb.ptIndex)
 	end
 
 	def updateLRU(ptIndex)
@@ -80,6 +80,12 @@ class Tlb
 
 	def printPt()
 		@pt.each_with_index do |entry, index|
+			print  "#{index}: #{entry}\n"
+		end
+	end
+
+	def printLRU()
+		@lru.each_with_index do |entry, index|
 			print  "#{index}: #{entry}\n"
 		end
 	end
