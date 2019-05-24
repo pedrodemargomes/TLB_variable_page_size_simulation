@@ -1,0 +1,21 @@
+0000000000400000   3748K r-x-- python3.5
+00000000009a8000    612K rw--- python3.5
+0000000000a41000    196K rw---   [ anon ]
+0000000004000000    152K r-x-- ld-2.23.so
+0000000004225000      8K rw--- ld-2.23.so
+0000000004227000      4K rw---   [ anon ]
+0000000004228000      4K rwx--   [ anon ]
+0000000058000000   1992K r-x-- lackey-amd64-linux
+00000000583f2000     12K rw--- lackey-amd64-linux
+00000000583f5000  10180K rw---   [ anon ]
+0000001002001000   7788K rwx--   [ anon ]
+000000100288c000   2712K rwx--   [ anon ]
+0000001002b32000      8K -----   [ anon ]
+0000001002b34000   1024K rwx--   [ anon ]
+0000001002c34000      8K -----   [ anon ]
+0000001002c36000      4K rw-s- vgdb-pipe-shared-mem-vgdb-12408-by-root-on-???
+0000001002c37000  14772K rwx--   [ anon ]
+0000001ffefff000      8K rw---   [ anon ]
+00007ffca2378000    132K rw---   [ pilha ]
+00007ffca23ec000      8K r----   [ anon ]
+ffffffffff600000      4K r-x--   [ anon ]
