@@ -1,4 +1,5 @@
 import humanfriendly
+import sys
 
 def nextPowerOf2(n): 
 	n -= 1
@@ -10,6 +11,20 @@ def nextPowerOf2(n):
 	n += 1
 	return n 
   
+def cmpN(a,b):
+	if a[0] > b[0]:
+		return 1
+	if a[0] < b[0]:
+		return -1
+	if a[2] > b[2]:
+		return 1
+	if a[2] < b[2]:
+		return -1
+	if int(a[4]) > int(b[4]):
+		return 1
+	if int(a[4]) < int(b[4]):
+		return -1
+
 
 def cmp(a,b):
 	if a[0] > b[0]:
@@ -27,15 +42,23 @@ def cmp(a,b):
 	return -1
 
 
-f = open("pmaps.txt", "r")
+f = open(sys.argv[1], "r")
 list_pmap_orig = []
 for x in f:
 	list_pmap_orig.append(filter(lambda a: a != "[" and a != "]", x.split()))
 
-list_pmap_orig.sort(cmp=cmp)
+list_pmap_orig.sort(cmp=cmpN)
 
+list_pmap_mod = []
+init = list_pmap_orig[0]
 for i in list_pmap_orig:
-	print i
+	if i[0] != init[0] or i[2] != init[2]:
+		aux[4] = str(init[4]) + " " + str(aux[4])
+		list_pmap_mod.append(list(aux))
+		init = i
+	aux = i
+
+list_pmap_orig = list(list_pmap_mod)
 
 list_pmap_mod = []
 list_pmap_mod.append(list_pmap_orig[0])
@@ -49,14 +72,13 @@ for i in list_pmap_orig:
 
 print "\n\n++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n\n"
 
-for i in list_pmap_mod:
-	print i
-
 aux = []
 aux.append(0)
 aux.append(0)
 for i in list_pmap_mod:
-	if aux[0] > int(i[0],16) and aux[1] != i[0]:
-		print "[ERRO]: " + str(i) 
+	print i
+	#if aux[0] > int(i[0],16):
+	#	print "[ERRO]: " + str(i) + " PASSOU: " + str(hex(aux[0]))
 	aux[0] = int(i[0], 16) + humanfriendly.parse_size(i[1], binary=True)
 	aux[1] = i[0]
+
