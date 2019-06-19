@@ -72,13 +72,30 @@ for i in list_pmap_orig:
 
 print "\n\n++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n\n"
 
+i = 1
+while i < len(list_pmap_mod):
+	if(list_pmap_mod[i][0] == list_pmap_mod[i-1][0]):
+		if(humanfriendly.parse_size(list_pmap_mod[i][1], binary=True) > humanfriendly.parse_size(list_pmap_mod[i-1][1], binary=True)):
+			del list_pmap_mod[i-1]
+		else:
+			del list_pmap_mod[i]
+	else:
+		i += 1
+
+i = 1
+while i < len(list_pmap_mod):
+	if(humanfriendly.parse_size(list_pmap_mod[i-1][1], binary=True) + int(list_pmap_mod[i-1][0], 16) > int(list_pmap_mod[i][0], 16) ):
+		del list_pmap_mod[i]
+	else:
+		i += 1 
+
 aux = []
 aux.append(0)
 aux.append(0)
 for i in list_pmap_mod:
 	print i
-	#if aux[0] > int(i[0],16):
-	#	print "[ERRO]: " + str(i) + " PASSOU: " + str(hex(aux[0]))
+	if aux[0] > int(i[0],16):
+		print "[ERRO]: " + str(aux[1]) + " PASSOU: " + str(hex(aux[0]))
 	aux[0] = int(i[0], 16) + humanfriendly.parse_size(i[1], binary=True)
 	aux[1] = i[0]
 
