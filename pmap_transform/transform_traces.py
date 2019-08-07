@@ -40,7 +40,10 @@ for i in range(1, len(list_pmap_with_desloc)):
     for j in range(i, len(list_pmap_with_desloc)):
         list_pmap_with_desloc[j][0] += list_pmap_with_desloc[i][5]
 
-print list_pmap_with_desloc
+# Imprime lista ja com os deslocamentos
+for i in list_pmap_with_desloc: 
+    print i 
+    # print "fim do segmento "+str(i[0]+i[1])
 
 # Get first
 aux = list_pmap_with_desloc[0]
