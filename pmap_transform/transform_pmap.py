@@ -69,7 +69,6 @@ for i in list_pmap_orig:
 	else:
 		list_pmap_mod.append(i)
 
-
 print "\n\n++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n\n"
 
 i = 1
@@ -89,6 +88,9 @@ while i < len(list_pmap_mod):
 	else:
 		i += 1 
 
+for i in list_pmap_mod:
+	i[1] = humanfriendly.format_size(nextPowerOf2(humanfriendly.parse_size(i[1], binary=True)), binary=True) 
+
 aux = []
 aux.append(0)
 aux.append(0)
@@ -96,6 +98,16 @@ for i in list_pmap_mod:
 	print i
 	if aux[0] > int(i[0],16):
 		print "[ERRO]: " + str(aux[1]) + " PASSOU: " + str(hex(aux[0]))
+		i.append(str(hex(aux[0])))
 	aux[0] = int(i[0], 16) + humanfriendly.parse_size(i[1], binary=True)
 	aux[1] = i[0]
+
+
+
+
+
+
+
+
+
 
