@@ -1,5 +1,8 @@
 import humanfriendly
 import sys
+import math
+import itertools
+import copy
 
 def nextPowerOf2(n): 
 	n -= 1
@@ -86,8 +89,12 @@ while i < len(list_pmap_mod):
 	else:
 		i += 1
 
+list_initial_seg = []
 for i in list_pmap_mod:
+	list_initial_seg.append( copy.deepcopy(i[0]) )
 	print i
+
+print "\n\n++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n\n"
 
 for i in list_pmap_mod:
 	i[1] = humanfriendly.format_size(nextPowerOf2(humanfriendly.parse_size(i[1], binary=True)), binary=True) 
@@ -107,25 +114,65 @@ for i in list_pmap_mod:
 	aux[0] = int(i[0], 16) + humanfriendly.parse_size(i[1], binary=True)
 	aux[1] = i[0]
 
-print "\n\n++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n\n"
+for i in list_pmap_mod:
+	i[0] = hex(int(i[0],16) + i[5])
+	
+	a = humanfriendly.parse_size(i[1], binary=True) - 1
+	b = 0xffffffffffff
+	i.append( hex(b & (~a)) )
+
 
 for i in list_pmap_mod:
 	print i
 
 
-# print "\n\n++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n\n"
+print "\n\n++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n\n"
 
-# for i in range(0, len(list_pmap_mod)):
-# 	for j in range(i+1, len(list_pmap_mod)):
-# 		list_pmap_mod[j][5] += list_pmap_mod[i][5]
+for i in list_pmap_mod:
+	if( (int(i[0],16) & ~int(i[6],16)) != 0 ):
+		i[0] = hex( (int(i[0],16) & int(i[6],16)) + (0xffffffffffff^int(i[6],16))+1)
 
-# for i in list_pmap_mod:
-# 	print i
+for i in list_pmap_mod:
+	print i
 
-# print "\n\n++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n\n"
+print "\n\n++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n\n"
 
-# for i in list_pmap_mod:
-# 	i[0] = hex( int(i[0],16) + i[5])
+aux = []
+aux.append(0)
+aux.append(0)
+for i in list_pmap_mod:
+	print i
+	if aux[0] > int(i[0],16):
+		print "[ERRO]: " + str(aux[1]) + " PASSOU: " + str(hex(aux[0]))
+		i[0] = hex(aux[0])
+		if( (int(i[0],16) & ~int(i[6],16)) != 0 ):
+			i[0] = hex( (int(i[0],16) & int(i[6],16)) + (0xffffffffffff^int(i[6],16))+1)
+	aux[0] = int(i[0], 16) + humanfriendly.parse_size(i[1], binary=True)
+	aux[1] = i[0]
 
-# for i in list_pmap_mod:
-# 	print i
+for i, j in zip(list_pmap_mod,list_initial_seg):
+	i[5] = int(i[0],16) - int(j,16)
+	i.append( hex(int(j,16)) )
+
+print "\n\n++++++++++++++++++++++ FINAL ++++++++++++++++++++++++++++++++++++++\n\n"
+
+for i in list_pmap_mod:
+	print i
+
+print "\n\n+++++++++++++++++++++ TESTES +++++++++++++++++++++++++++++++++++++++\n\n"
+
+aux = []
+aux.append(0)
+aux.append(0)
+for i in list_pmap_mod:
+	if aux[0] > int(i[0],16):
+		print "[ERRO]: " + str(aux[1]) + " PASSOU: " + str(hex(aux[0]))
+	aux[0] = int(i[0], 16) + humanfriendly.parse_size(i[1], binary=True)
+	aux[1] = i[0]
+
+for i in list_pmap_mod:
+	if( (int(i[0],16) & ~int(i[6],16)) != 0 ):
+		print "ERRO "
+		print i
+
+
