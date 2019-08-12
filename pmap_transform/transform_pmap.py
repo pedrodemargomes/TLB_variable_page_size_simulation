@@ -91,7 +91,7 @@ while i < len(list_pmap_mod):
 
 list_initial_seg = []
 for i in list_pmap_mod:
-	list_initial_seg.append( copy.deepcopy(i[0]) )
+	list_initial_seg.append( (copy.deepcopy(i[0]), copy.deepcopy(i[1]) ) )
 	print i
 
 print "\n\n++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n\n"
@@ -151,8 +151,9 @@ for i in list_pmap_mod:
 	aux[1] = i[0]
 
 for i, j in zip(list_pmap_mod,list_initial_seg):
-	i[5] = int(i[0],16) - int(j,16)
-	i.append( hex(int(j,16)) )
+	i[5] = int(i[0],16) - int(j[0],16)
+	i.append( hex(int(j[0],16)) )
+	i.append(j[1])
 
 print "\n\n++++++++++++++++++++++ FINAL ++++++++++++++++++++++++++++++++++++++\n\n"
 
