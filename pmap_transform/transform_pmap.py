@@ -44,6 +44,11 @@ def cmp(a,b):
 		return -1
 	return -1
 
+if len(sys.argv) != 3:
+	print "Numero de paramentros errado"
+	print "python transform_pmap.py pmaps.txt pmaps_tratados.txt"	
+	exit(-1)
+
 
 f = open(sys.argv[1], "r")
 list_pmap_orig = []
@@ -159,6 +164,10 @@ print "\n\n++++++++++++++++++++++ FINAL ++++++++++++++++++++++++++++++++++++++\n
 
 for i in list_pmap_mod:
 	print i
+
+fsaida = open(sys.argv[2], "w+")
+for i in list_pmap_mod:
+	fsaida.write(str(i)+"\n")
 
 print "\n\n+++++++++++++++++++++ TESTES +++++++++++++++++++++++++++++++++++++++\n\n"
 
