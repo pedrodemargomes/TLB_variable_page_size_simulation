@@ -1,5 +1,18 @@
 # TLB_variable_page_size_simulation
 
+## create_pmaps_numbered.sh
+Precisa ser executado no diretorio onde estaos os arquivos "pmap-\*.txt".
+Concatena os pmaps e insere e numero dos segmentos de acordo com o arquivo em que foram encontrados.
+```
+./create_pmaps_numbered.sh
+```
+
+## get_times_of_pmaps.py
+Junta os segmentos repetidos dos pmaps, inserindo apenas a última apariçãol do segmento no pmap resultante.
+```
+python get_times_of_pmaps.py pmaps.txt
+```
+
 ## transform_pmap.py
 Transforma o pmaps.txt em um pmap 'tratado', ou seja, com os segmentos em bordas de 2^n e de tamnho 2^n
 ```
