@@ -1,4 +1,3 @@
-
 struct TlbEntry
 	property tagMask, tag_offset, ppn, valid, ptIndex
 
@@ -27,7 +26,7 @@ class Tlb
 
 	def insertTlbLRU(newEntryTlb : TlbEntry, ptIndex : UInt64)
 		indexInTlb = @tlb.index{|x| x.ptIndex == @lru.first }
-		print indexInTlb
+		#print indexInTlb
 		@tlb.delete_at(indexInTlb.as(Int32))
 		@tlb.push(newEntryTlb)
 		@lru.delete_at(0)
@@ -55,7 +54,7 @@ class Tlb
 		@pt.each do |entry|
 			if (entry.tagMask & entry.tag_offset) == (entry.tagMask & virtualAddress) # HIT
 				insertTlbLRU(entry, entry.ptIndex) # Insert address in TLB using LRU
-				# insertTlbRand(entry) # Insert address in TLB random
+				#insertTlbRand(entry) # Insert address in TLB random
 				return (~entry.tagMask & entry.tag_offset) + entry.ppn
 			end
 		end
