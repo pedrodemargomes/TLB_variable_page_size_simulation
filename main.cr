@@ -22,6 +22,12 @@ File.each_line path_file_addresses do |line|
 		print "Endereco fora da pt\n"
 		exit -1
 	end
+
+	# gets
+	# print "\nMiss counter = #{tlb.missCounter}\n\n"
+	# tlb.printTlb
+	# print "\n"
+	# tlb.printPt
 	#tlb.printLRU()
 end
 
