@@ -1,8 +1,8 @@
-struct TlbEntry
-	property tagMask, tag_offset, ppn, valid, ptIndex
+class TlbEntry
+	property tagMask, tag_offset, ppn, valid, ptIndex, countAccess
 
-	def initialize(@tagMask : UInt64, @tag_offset : UInt64, @ppn : UInt64, @valid : Bool, @ptIndex : UInt64)
-
+	def initialize(@tagMask : UInt64, @tag_offset : UInt64, @ppn : UInt64, @valid : Bool, @ptIndex : UInt64, @countAccess : UInt64)
+		
 	end
 
 end
@@ -12,7 +12,7 @@ class Tlb
 
 	def initialize(@length : UInt64)
 		@tlb = [] of TlbEntry
-		@length.times.each{|i| @tlb << TlbEntry.new(0,0,0, false,i) }
+		@length.times.each{|i| @tlb << TlbEntry.new(0,0,0, false,i,0) }
 		@pt = [] of TlbEntry
 		@missCounter = 0
 		@lru = [] of UInt64
@@ -46,6 +46,10 @@ class Tlb
 				# ++++++ Using LRU ++++++
 				updateLRU(entry.ptIndex)
 				# +++++++++++++++++++++++
+
+				# Increment count of accesses in pt entry
+				@pt[entry.ptIndex].countAccess += 1
+
 				return (~entry.tagMask & entry.tag_offset) + entry.ppn
 			end
 		end
@@ -53,8 +57,12 @@ class Tlb
 		@missCounter += 1
 		@pt.each do |entry|
 			if (entry.tagMask & entry.tag_offset) == (entry.tagMask & virtualAddress) # HIT
+				# Increment count of accesses in pt entry
+				@pt[entry.ptIndex].countAccess += 1
+				
 				insertTlbLRU(entry, entry.ptIndex) # Insert address in TLB using LRU
-				#insertTlbRand(entry) # Insert address in TLB random
+				# insertTlbRand(entry) # Insert address in TLB random
+				
 				return (~entry.tagMask & entry.tag_offset) + entry.ppn
 			end
 		end
@@ -66,20 +74,20 @@ class Tlb
 		count = 0
 		File.each_line path_file_pt do |line|
 			aux = line.split
-			@pt << TlbEntry.new(aux[1].to_u64(16), aux[0].to_u64(16), aux[2].to_u64(16), true, count)
+			@pt << TlbEntry.new(aux[1].to_u64(16), aux[0].to_u64(16), aux[2].to_u64(16), true, count, 0)
 			count += 1
 		end
 	end
 
 	def printTlb()
 		@tlb.each_with_index do |entry, index|
-			print  "#{index}: #{entry}\n"
+			print "[#{index}]: tagMask: #{entry.tagMask.to_s(16)} , tag_offset: #{entry.tag_offset.to_s(16)} , ppn: #{entry.ppn} , valid: #{entry.valid} , ptIndex: #{entry.ptIndex} , countAccess: #{entry.countAccess}\n"
 		end
 	end
 
 	def printPt()
 		@pt.each_with_index do |entry, index|
-			print  "#{index}: #{entry}\n"
+			print "[#{index}]: tagMask: #{entry.tagMask.to_s(16)} , tag_offset: #{entry.tag_offset.to_s(16)} , ppn: #{entry.ppn} , valid: #{entry.valid} , ptIndex: #{entry.ptIndex} , countAccess: #{entry.countAccess}\n"
 		end
 	end
 
