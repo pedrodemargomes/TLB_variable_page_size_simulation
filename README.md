@@ -8,7 +8,7 @@ Concatena os pmaps e insere e numero dos segmentos de acordo com o arquivo em qu
 ```
 
 ## get_times_of_pmaps.py
-Junta os segmentos repetidos dos pmaps, inserindo apenas a última apariçãol do segmento no pmap resultante.
+Junta os segmentos repetidos dos pmaps, inserindo apenas a última aparição do segmento no pmap resultante.
 ```
 python get_times_of_pmaps.py pmaps.txt
 ```
