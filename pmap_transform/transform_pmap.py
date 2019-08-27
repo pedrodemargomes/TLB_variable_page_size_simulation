@@ -3,6 +3,7 @@ import sys
 import math
 import itertools
 import copy
+import ast
 
 def nextPowerOf2(n): 
 	n -= 1
@@ -53,7 +54,7 @@ if len(sys.argv) != 3:
 f = open(sys.argv[1], "r")
 list_pmap_orig = []
 for x in f:
-	list_pmap_orig.append(filter(lambda a: a != "[" and a != "]", x.split()))
+	list_pmap_orig.append(ast.literal_eval(x))
 
 list_pmap_orig.sort(cmp=cmpN)
 
