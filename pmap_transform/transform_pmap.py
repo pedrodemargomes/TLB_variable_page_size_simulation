@@ -57,6 +57,15 @@ for x in f:
 
 list_pmap_orig.sort(cmp=cmpN)
 
+####
+#print "+++++++++++++++++++++++"
+
+#for i in list_pmap_orig:
+#	print i
+
+#print "+++++++++++++++++++++++"
+###
+
 list_pmap_mod = []
 init = list_pmap_orig[0]
 for i in list_pmap_orig:
@@ -66,7 +75,19 @@ for i in list_pmap_orig:
 		init = i
 	aux = i
 
+aux[4] = str(init[4]) + " " + str(aux[4])
+list_pmap_mod.append(list(aux))
+
 list_pmap_orig = list(list_pmap_mod)
+
+####
+#print "+++++++++++++++++++++++"
+
+#for i in list_pmap_orig:
+#	print i
+
+#print "+++++++++++++++++++++++"
+###
 
 list_pmap_mod = []
 list_pmap_mod.append(list_pmap_orig[0])
