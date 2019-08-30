@@ -57,15 +57,6 @@ for x in f:
 
 list_pmap_orig.sort(cmp=cmpN)
 
-####
-#print "+++++++++++++++++++++++"
-
-#for i in list_pmap_orig:
-#	print i
-
-#print "+++++++++++++++++++++++"
-###
-
 list_pmap_mod = []
 init = list_pmap_orig[0]
 for i in list_pmap_orig:
@@ -89,6 +80,7 @@ list_pmap_orig = list(list_pmap_mod)
 #print "+++++++++++++++++++++++"
 ###
 
+
 list_pmap_mod = []
 list_pmap_mod.append(list_pmap_orig[0])
 for i in list_pmap_orig:
@@ -97,6 +89,16 @@ for i in list_pmap_orig:
 			list_pmap_mod[-1][1] = i[1]
 	else:
 		list_pmap_mod.append(i)
+
+####
+#print "+++++++++++++++++++++++"
+
+#for i in list_pmap_mod:
+#	print i
+
+#print "+++++++++++++++++++++++"
+###
+
 
 i = 1
 while i < len(list_pmap_mod):
@@ -107,13 +109,22 @@ while i < len(list_pmap_mod):
 			del list_pmap_mod[i]
 	else:
 		i += 1
-
+	
 i = 1
 while i < len(list_pmap_mod):
 	if(humanfriendly.parse_size(list_pmap_mod[i-1][1], binary=True) + int(list_pmap_mod[i-1][0], 16) > int(list_pmap_mod[i][0], 16) ):
 		del list_pmap_mod[i]
 	else:
 		i += 1
+
+####
+#print "+++++++++++++++++++++++"
+
+#for i in list_pmap_mod:
+#	print i
+
+#print "+++++++++++++++++++++++"
+###
 
 list_initial_seg = []
 for i in list_pmap_mod:
