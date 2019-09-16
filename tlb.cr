@@ -12,24 +12,20 @@ class Tlb
 
 	def initialize(@length : UInt64)
 		@tlb = [] of TlbEntry
-		@length.times.each{|i| @tlb << TlbEntry.new(0,0,0, false,i,0) }
+		#@length.times.each{|i| @tlb << TlbEntry.new(0,0,0, false,i,0) }
 		@pt = [] of TlbEntry
 		@missCounter = 0
 		@lru = [] of UInt64
-		@length.times.each{|i| @lru << i }
-	end
-
-	def insertTlbRand(newEntryTlb : TlbEntry)
-		rand =  Random.new.rand(@length)
-		@tlb[rand] = newEntryTlb
+		#@length.times.each{|i| @lru << i }
 	end
 
 	def insertTlbLRU(newEntryTlb : TlbEntry, ptIndex : UInt64)
-		indexInTlb = @tlb.index{|x| x.ptIndex == @lru.first }
-		#print indexInTlb
-		@tlb.delete_at(indexInTlb.as(Int32))
+		if(@lru.size >= @length)
+			indexInTlb = @tlb.index{|x| x.ptIndex == @lru.first }
+			@tlb.delete_at(indexInTlb.as(Int32))
+			@lru.delete_at(0)
+		end
 		@tlb.push(newEntryTlb)
-		@lru.delete_at(0)
 		@lru.push(newEntryTlb.ptIndex)
 	end
 
