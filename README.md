@@ -26,5 +26,5 @@ python clean_pmap.py pmaps_tratados.txt
 ## main.cr
 Simula o comportamento da TLB com a PT contuda em pt.txt e uma lista de endereços acessados.
 ```
-crystal run main.cr -- lista_enderecos.txt pt.txt
+crystal run main.cr -- lista_enderecos.txt pt.txt tamanho_da_TLB
 ```
