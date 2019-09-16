@@ -12,7 +12,6 @@ if len(sys.argv) != 3:
 def newSegValue(old_seg, list_seg):
     for i in list_seg:
         if (old_seg-i[7] < 0):
-			print "========== Cant transform =========="
 			return 0
         if (old_seg-i[7] < i[8]): 
 			return old_seg + i[5]
